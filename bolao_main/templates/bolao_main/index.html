@@ -1,0 +1,143 @@
+{% extends 'bolao_main/base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+
+<div class="container marketing">
+    
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <img class="img-circle"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                        alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                    vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
+                    cursus magna.</p>
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="img-circle"
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                    alt="Generic placeholder image" width="140" height="140">
+            <h2>Heading</h2>
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh.</p>
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        
+        <!--Proxima corrida-->
+        
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                
+                <h4 class="text-muted">Próxima Corrida</h4>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <hr class="featurette-divider"
+                                style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                    </li>
+                    <li class=""><h3>{{ next_race.country }} {{ next_race.year }}</h3></li>
+                    <li>
+                        <hr class="featurette-divider"
+                                style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                    </li>
+                </ul>
+                <div class="row col-lg-offset-2 col-lg-10 col-xs-offset-2 col-xs-10">
+                    <table class="table table-condensed no-border"
+                            style="padding:0px 0px 0px;text-align:left;text-transform:uppercase;">
+                        <tbody style="text-align:left">
+                        <tr>
+                            <td><h5>FP1</h5></td>
+                            <td><h5>{{ next_race.fP1_date|date:'d/m/Y H:i'}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>FP2</h5></td>
+                            <td><h5>{{ next_race.fP2_date|date:'d/m/Y H:i'}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>FP3</h5></td>
+                            <td><h5>{{ next_race.fP3_date|date:'d/m/Y H:i'}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>QUALI</h5></td>
+                            <td><h5>{{ next_race.quali_date|date:'d/m/Y H:i'}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>RACE</h5></td>
+                            <td><h5>{{ next_race.race_date|date:'d/m/Y H:i'}}</h5></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <img class="img-rounded"
+                        src="{% static 'bolao_info/images/Hockenheim.jpeg' %}" width="150" height="150"
+                        alt="Generic placeholder image" width="140" height="140">
+            </div>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+    
+    
+    <!-- START THE FEATURETTES -->
+    <div class="container-fluid">
+        <div class="row featurette col-md-4 col-lg-offset-3 col-lg-6">
+            <div>
+                <h1 class="featurette-heading align-center">
+                    <center>Stream</center>
+                    <br></h1>
+            </div>
+        </div>
+    </div>
+    <hr class="featurette-divider" style="margin-top: 0px; margin-bottom: 20px;">
+    
+    {% if posts %}
+    
+    <div class="container-fluid">
+        {% for post in posts %}
+        
+        
+        <div class="row featurette panel panel-default col-md-4 col-lg-offset-3 col-lg-6">
+            
+            <div>
+                <h3 class="featurette-heading">{{ post.title }} <br><span
+                        class="text-muted small">{{ post.posted }}</span></h3>
+                
+                {% include 'bolao_main/make_bet_post.html' %}
+            
+            </div>
+        
+        </div>
+        
+        <hr class="row featurette-divider col-md-4 col-lg-12" style="margin-top: 0px; margin-bottom: 20px;">
+        
+        
+        {% endfor %}
+    </div>
+    
+    {% endif %}
+    
+    <!-- /END THE FEATURETTES -->
+    
+    
+    <!-- FOOTER -->
+    
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 JMarcelo &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
+
+</div><!-- /.container -->
+
+
+{% endblock %}
+
+{% block content %}
+
+
+{% endblock %}

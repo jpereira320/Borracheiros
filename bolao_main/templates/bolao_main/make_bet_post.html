@@ -1,0 +1,70 @@
+{% load app_filters %}
+
+<div class=" row col-lg-offset-3 col-lg-6">
+    <div>
+        <table class="table table-striped"
+                style="padding:18px 20px 14px;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:18px;font-size:1.5rem">
+            <thead>
+            <tr>
+                
+                <th>Posição</th>
+                <th>Piloto</th>
+            
+            </tr>
+            </thead>
+            <tbody style="text-align:left">
+            <tr>
+                <td>Pole</td>
+                <td class="strong">{{ post.body|getposition:2 }}</td>
+
+            </tr>
+            <tr>
+                <td>P1</td>
+                <td>{{ post.body|getposition:4 }}</td>
+
+            </tr>
+            <tr>
+                <td>P2</td>
+                <td>{{ post.body|getposition:6 }}</td>
+            </tr>
+            <tr>
+                <td>P3</td>
+                <td>{{ post.body|getposition:8 }}</td>
+
+            </tr>
+            <tr>
+                <td>P4</td>
+                <td>{{ post.body|getposition:10 }}</td>
+            </tr>
+            <tr>
+                <td>P5</td>
+                <td>{{ post.body|getposition:12 }}</td>
+
+            </tr>
+            <tr>
+                <td>P6</td>
+                <td>{{ post.body|getposition:14 }}</td>
+            </tr>
+            <tr>
+                <td>P7</td>
+                <td>{{ post.body|getposition:16 }}</td>
+
+            </tr>
+            <tr>
+                <td>P8</td>
+                <td>{{ post.body|getposition:18 }}</td>
+            </tr>
+            <tr>
+                <td>P9</td>
+                <td>{{ post.body|getposition:20 }}</td>
+
+            </tr>
+            <tr>
+                <td>P10</td>
+                <td>{{ post.body|getposition:22 }}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

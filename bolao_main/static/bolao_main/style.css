@@ -1,0 +1,73 @@
+body{
+    background: white url("images/clean_textile.png");
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.navbar-brand{
+    font-family: 'Satisfy', cursive;
+}
+
+.table.no-border tr td, .table.no-border tr th {
+  border-width: 0;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.featurette {
+padding-top: 20px;
+overflow: hidden; /* Clear floats */
+}
+
+.resultsarchive-table{margin:0 0 25px 0}
+.resultsarchive-table tr th{padding:18px 20px 14px;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:11px;font-size:1.1rem}
+.resultsarchive-table tbody tr:nth-child(odd){background:#f4f4f4}
+.resultsarchive-table td{font-size:13px;font-size:1.3rem;text-align:left;padding:18px 20px 14px;color:#808080}
+.ie .resultsarchive-table td{font-family:'bentonsans',Helvetica,sans-serif}
+.resultsarchive-table .limiter{display:none}
+.resultsarchive-table .bold{font-weight:700}
+.resultsarchive-table .semi-bold{font-weight:600}
+.resultsarchive-table .grey{color:#808080}
+.resultsarchive-table .dark{color:#4a4a4a}
+.resultsarchive-table .uppercase{text-transform:uppercase}
+.resultsarchive-table .hide-for-desktop{display:none}
+.resultsarchive-table .width30{width:30%}
+.resultsarchive-table .width25{width:25%}
+.resultsarchive-table tr th,.resultsarchive-table tr td{padding:15px 15px 12px}
+.resultsarchive-table .hide-for-tablet{display:none}
+.resultsarchive-table{margin:0 0 35px}
+.resultsarchive-table tr th,.resultsarchive-table tr td{padding:18px 10px 14px}
+.resultsarchive-table .limiter{display:table-cell;padding:0;width:5%}
+.resultsarchive-table .hide-for-mobile{display:none}
+.resultsarchive-table .hide-for-desktop{display:block}
