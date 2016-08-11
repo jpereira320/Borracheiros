@@ -1,0 +1,33 @@
+{% extends 'bolao_bet/base.html' %}
+
+{% block title %} Nova Aposta {% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                
+                    <form class="form-horizontal" action="" method="post">{% csrf_token %}
+                        
+                        {% include 'bolao_bet/ddown-form-template.html' %}
+                        
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Apostar</button>
+                            </div>
+                                
+                        </div>
+                        
+                    </form>
+                    
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
