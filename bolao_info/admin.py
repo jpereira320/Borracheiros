@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import GPInfo, PilotInfo
 
-# Register your models here.
+
+admin.site.register(GPInfo)
+admin.site.register(PilotInfo)
