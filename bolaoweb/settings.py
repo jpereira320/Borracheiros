@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bolao_main.apps.BolaoMainConfig',
+    'bolao_bet.apps.BolaoBetConfig',
+    'bolao_info.apps.BolaoInfoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
