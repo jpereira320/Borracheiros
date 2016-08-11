@@ -1,5 +1,5 @@
 from django.conf.urls import url
-
+from bolao_main import views
 
 app_name = 'bolao_main'
 

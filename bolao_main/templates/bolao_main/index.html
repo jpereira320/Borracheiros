@@ -43,13 +43,18 @@
                         <hr class="featurette-divider"
                                 style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
                     </li>
+                    {% if next_race != None %}
                     <li class=""><h3>{{ next_race.country }} {{ next_race.year }}</h3></li>
+                    {% else %}
+                     <li class=""><h3>Não Disponível</h3></li>
+                    {% endif %}
                     <li>
                         <hr class="featurette-divider"
                                 style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
                     </li>
                 </ul>
                 <div class="row col-lg-offset-2 col-lg-10 col-xs-offset-2 col-xs-10">
+                    {% if next_race != None %}
                     <table class="table table-condensed no-border"
                             style="padding:0px 0px 0px;text-align:left;text-transform:uppercase;">
                         <tbody style="text-align:left">
@@ -75,10 +80,13 @@
                         </tr>
                         </tbody>
                     </table>
+                    {% endif %}
                 </div>
+                {% if next_race != None %}
                 <img class="img-rounded"
                         src="{% static 'bolao_info/images/Hockenheim.jpeg' %}" width="150" height="150"
                         alt="Generic placeholder image" width="140" height="140">
+                {% endif %}
             </div>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
@@ -86,7 +94,7 @@
     
     <!-- START THE FEATURETTES -->
     <div class="container-fluid">
-        <div class="row featurette col-md-4 col-lg-offset-3 col-lg-6">
+        <div class="row featurette col-md-offset-4 col-md-4 col-lg-offset-3 col-lg-6">
             <div>
                 <h1 class="featurette-heading align-center">
                     <center>Stream</center>

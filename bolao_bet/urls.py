@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from F1Bet import views
+from bolao_bet import views
 
 
 app_name = 'bolao_bet'

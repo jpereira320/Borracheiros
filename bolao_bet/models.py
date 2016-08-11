@@ -1,10 +1,9 @@
 from django.db import models
-from F1Info.models import GPInfo, PilotInfo
+from bolao_info.models import GPInfo, PilotInfo
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+
 
 DEFAULT_PILOT_ID = 1
 

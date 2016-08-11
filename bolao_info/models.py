@@ -5,7 +5,7 @@ class GPInfo(models.Model):
     # Where
     country = models.CharField(max_length=50)
     circuit = models.CharField(max_length=250)
-    image = models.ImageField()
+    image_static = models.CharField(max_length=250)
     
     # When
     year = models.IntegerField()
@@ -40,7 +40,7 @@ class PilotInfo(models.Model):
     name = models.CharField(max_length=50)
     short_name = models.CharField(max_length=3)
     number = models.IntegerField()
-    helmet = models.ImageField()
+    helmet_static = models.CharField(max_length=250)
     # Status
     active = models.BooleanField(default=True)
     
