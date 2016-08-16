@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from bolao_info.models import GPInfo, PilotInfo
 from bolao_bet.models import UserBet
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView
 from bolao_main.models import Blog
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse

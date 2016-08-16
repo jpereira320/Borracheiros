@@ -17,27 +17,27 @@ class UserBet(models.Model):
     GPrix = models.ForeignKey(GPInfo, on_delete=models.CASCADE)
     
     # Bet
-    pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='pole', default=DEFAULT_PILOT_ID,
+    pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='pole', blank=True, null=True,
         limit_choices_to={'active': True})
-    p1 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p1', default=DEFAULT_PILOT_ID,
+    p1 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p1', blank=True, null=True,
         limit_choices_to={'active': True})
-    p2 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p2', default=DEFAULT_PILOT_ID,
+    p2 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p2', blank=True, null=True,
         limit_choices_to={'active': True})
-    p3 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p3', default=DEFAULT_PILOT_ID,
+    p3 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p3', blank=True, null=True,
         limit_choices_to={'active': True})
-    p4 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p4', default=DEFAULT_PILOT_ID,
+    p4 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p4', blank=True, null=True,
         limit_choices_to={'active': True})
-    p5 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p5', default=DEFAULT_PILOT_ID,
+    p5 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p5', blank=True, null=True,
         limit_choices_to={'active': True})
-    p6 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p6', default=DEFAULT_PILOT_ID,
+    p6 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p6', blank=True, null=True,
         limit_choices_to={'active': True})
-    p7 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p7', default=DEFAULT_PILOT_ID,
+    p7 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p7', blank=True, null=True,
         limit_choices_to={'active': True})
-    p8 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p8', default=DEFAULT_PILOT_ID,
+    p8 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p8', blank=True, null=True,
         limit_choices_to={'active': True})
-    p9 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p9', default=DEFAULT_PILOT_ID,
+    p9 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p9', blank=True, null=True,
         limit_choices_to={'active': True})
-    p10 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p10', default=DEFAULT_PILOT_ID,
+    p10 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='p10', blank=True, null=True,
         limit_choices_to={'active': True})
 
     def get_absolute_url(self):
