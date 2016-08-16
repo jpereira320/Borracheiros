@@ -1,0 +1,33 @@
+<div class="modal fade" id="myloginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <!--login button-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="loginModal">Login</h4>
+                
+            </div>
+            
+            <form action="{% url 'bolao_main:main-login' %}" method='POST'> {% csrf_token %}
+                
+                <div class="form-group col-md-3">
+                    <br>
+                    <label class="col-form-label" for="username"> Usuário </label>
+                    <input type="text" class="form-control" name="Username" id="username"><br>
+                    <label class="col-form-label" for="password">Senha </label>
+                    <input type='password' class="form-control" name="Password" id="password">
+                
+                </div>
+                
+                <div class="modal-footer">
+                    <input type='submit' class="btn btn-primary" value='Login'>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                
+            </form>
+        
+        </div>
+    </div>
+</div>

@@ -6,38 +6,34 @@
 
 <div class="container marketing">
     
-    <!-- Three columns of text below the carousel -->
+    <!-- Three columns of text -->
     <div class="row">
+        <!--Championship Ranking-->
         <div class="col-lg-4">
             <div class="panel panel-default">
-                <img class="img-circle"
-                        src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                        alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
+                <h2>Clasificação Geral</h2>
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
                     vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
                     cursus magna.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
             </div>
         </div><!-- /.col-lg-4 -->
+        
+        <!--Last Race rstandings-->
         <div class="col-lg-4">
-            <img class="img-circle"
-                    src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                    alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
-                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <div class="panel panel-default">
+                <h2>Último Resultado</h2>
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                    mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                    condimentum nibh.</p>
+            </div>
         </div><!-- /.col-lg-4 -->
         
         <!--Proxima corrida-->
-        
-        <div class="col-lg-4">
+        <div class="col-md-offset-1 col-md-10 col-lg-offset-0 col-lg-4">
             <div class="panel panel-default">
                 
-                <h4 class="text-muted">Próxima Corrida</h4>
-
+                <h4 class="text-muted">Próximo Grand Prix</h4>
+                
                 <ul class="list-unstyled">
                     <li>
                         <hr class="featurette-divider"
@@ -46,7 +42,7 @@
                     {% if next_race != None %}
                     <li class=""><h3>{{ next_race.country }} {{ next_race.year }}</h3></li>
                     {% else %}
-                     <li class=""><h3>Não Disponível</h3></li>
+                    <li class=""><h3>Não Disponível</h3></li>
                     {% endif %}
                     <li>
                         <hr class="featurette-divider"
@@ -55,9 +51,9 @@
                 </ul>
                 <div class="row col-lg-offset-2 col-lg-10 col-xs-offset-2 col-xs-10">
                     {% if next_race != None %}
-                    <table class="table table-condensed no-border"
+                    <table class="table table-condensed no-border "
                             style="padding:0px 0px 0px;text-align:left;text-transform:uppercase;">
-                        <tbody style="text-align:left">
+                        <tbody>
                         <tr>
                             <td><h5>FP1</h5></td>
                             <td><h5>{{ next_race.fP1_date|date:'d/m/Y H:i'}}</h5></td>
@@ -84,15 +80,16 @@
                 </div>
                 {% if next_race != None %}
                 <img class="img-rounded"
-                        src="{% static 'bolao_info/images/Hockenheim.jpeg' %}" width="150" height="150"
+                        src="{% static 'bolao_info/images/' %}{{ next_race.image_static }}" width="150" height="150"
                         alt="Generic placeholder image" width="140" height="140">
                 {% endif %}
+            
             </div>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
     
     
-    <!-- START THE FEATURETTES -->
+    <!-- START THE Stream -->
     <div class="container-fluid">
         <div class="row featurette col-md-offset-4 col-md-4 col-lg-offset-3 col-lg-6">
             <div>
@@ -104,11 +101,13 @@
     </div>
     <hr class="featurette-divider" style="margin-top: 0px; margin-bottom: 20px;">
     
+    <!--Check for posts-->
     {% if posts %}
     
     <div class="container-fluid">
-        {% for post in posts %}
         
+        <!--Loop over posts-->
+        {% for post in posts %}
         
         <div class="row featurette panel panel-default col-md-4 col-lg-offset-3 col-lg-6">
             
@@ -124,8 +123,8 @@
         
         <hr class="row featurette-divider col-md-4 col-lg-12" style="margin-top: 0px; margin-bottom: 20px;">
         
-        
         {% endfor %}
+    
     </div>
     
     {% endif %}

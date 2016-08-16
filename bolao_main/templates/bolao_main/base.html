@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}bolãoF1{% endblock %}</title>
+    <title>{% block title %}Borracheiros{% endblock %}</title>
     {% load staticfiles %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -21,6 +21,8 @@
 </head>
 <body>
 
+
+<!-- Adding the navbar-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         
@@ -31,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'bolao_main:index' %}">bolãoF1</a>
+            <a class="navbar-brand" href="{% url 'bolao_main:index' %}">bolão Borracheiros</a>
         </div>
         
         <!--Items-->
@@ -43,43 +45,70 @@
                         <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; F1
                     </a>
                 </li>
+                
+                <!--Only for authenticated users - Show apostar-->
                 {% if request.user.is_authenticated %}
                 <li class="">
-                    <!--<a href= "#myModal" data-toggle="modal" data-target="#myModal">-->
                     <a href="{% url 'bolao_bet:f1bet-add' %}">
                         <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>&nbsp; Apostar
                     </a>
                 </li>
+                
                 {% endif %}
+            
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
+                
+                <!--Only for staff users - Show advanced options -->
                 {% if request.user.is_staff %}
                 <li class="">
                     <a href="#">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Apurar
                     </a>
                 </li>
+                
                 {% else %}
                 <li class="">
                     <a href="#">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> ELSE
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> BLA
                     </a>
                 </li>
+                
                 {% endif %}
+                
+                <!--Only for authenticated users - Show user menu-->
                 {% if request.user.is_authenticated %}
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
-                    </a>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{ request.user.first_name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Apostas</a>
+                        </li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'bolao_main:main-logout' %}"><span class="glyphicon glyphicon-off"
+                                aria-hidden="true"></span> Log
+                            Out</a></li>
+                    
+                    </ul>
                 </li>
+                
                 {% else %}
-                 <li class="">
-                    <a href="#">
+                
+                <!--Or show login button-->
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#myloginModal">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Login
                     </a>
                 </li>
+                
+                {% include 'bolao_main/login_modal.html' %}
+                
                 {% endif %}
+            
             </ul>
         
         </div>
@@ -93,6 +122,7 @@
 
 {% block body %}
 {% endblock %}
+
 
 </body>
 </html>

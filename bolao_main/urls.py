@@ -4,6 +4,8 @@ from bolao_main import views
 app_name = 'bolao_main'
 
 urlpatterns = [
-    # /F1main/
+    # /bolao_main/
     url(r'^$', views.index, name='index'),
+    url(r'^login/$', views.login_view, name='main-login'),
+    url(r'^logout/$', views.logout_view, name='main-logout'),
 ]
