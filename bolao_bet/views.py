@@ -2,15 +2,22 @@ from django.shortcuts import render, get_object_or_404
 from bolao_bet.models import UserBet
 from django.views.generic.edit import CreateView
 from bolao_main.models import Blog
+from bolao_bet.forms import ProcessBetForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 class BetCreate(CreateView):
     model = UserBet
     template_name = 'bolao_bet/userbet_form.html'
     fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(BetCreate, self).form_valid(form)
 
 
 def make_post(request, bet_id):
@@ -25,6 +32,9 @@ def make_post(request, bet_id):
         
         try:
             bet_user = bet.user.get_short_name()
+
+            # import pdb;
+            # pdb.set_trace()
         except IOError:
             bet_user = ''
         
@@ -52,9 +62,9 @@ def make_post(request, bet_id):
             'error_message': "Invalid bet.",
         })
     else:
-    
+        
         post = Blog()
-        post.title = 'Aposta de ' + bet_user
+        post.title = 'Aposta de ' + bet_user + ' - ' + bet_gprix
         post.slug = slugify(post.title + bet_date)
         post.body = (bet_gprix + '\n\n' + 'Pole: ' + bet_pole + '\n' +
                      'P1: ' + bet_p1 + '\n' +
@@ -67,9 +77,26 @@ def make_post(request, bet_id):
                      'P8: ' + bet_p8 + '\n' +
                      'P9: ' + bet_p9 + '\n' +
                      'P10: ' + bet_p10)
-      
+        
         post.save()
     # Always return an HttpResponseRedirect after successfully dealing
     # with POST data. This prevents data from being posted twice if a
     # user hits the Back button.
     return HttpResponseRedirect(reverse('bolao_main:index'))
+
+
+def process_bet(request):
+
+    if request.method == 'POST':
+        form = ProcessBetForm(request.POST)
+        if form.is_valid():
+            gp = form.cleaned_data.get('country')
+
+            
+            # do stuff here
+    else:
+        form = ProcessBetForm()
+    
+    context = {'form': form, }
+    
+    return render(request, 'bolao_bet/process_bet.html', context)

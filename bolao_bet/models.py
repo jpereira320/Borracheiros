@@ -10,7 +10,7 @@ DEFAULT_PILOT_ID = 1
 
 class UserBet(models.Model):
     # Who
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=DEFAULT_PILOT_ID)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     # When
     date = models.DateTimeField(default=timezone.now)
     # Where
@@ -41,7 +41,29 @@ class UserBet(models.Model):
         limit_choices_to={'active': True})
 
     def get_absolute_url(self):
-        return reverse('F1Bet:make-post', args=(self.id,))
+        return reverse('bolao_bet:make-post', args=(self.id,))
     
     def __str__(self):
         return self.GPrix.country + self.GPrix.year.__str__()
+    
+    
+class UserGpPoints(models.Model):
+    # Who
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=DEFAULT_PILOT_ID)
+    # Where
+    GPrix = models.ForeignKey(GPInfo, on_delete=models.CASCADE)
+    # Points
+    points = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.user.first_name + self.GPrix.country + self.GPrix.year.__str__()
+
+
+class UserTotalPoints(models.Model):
+    # Who
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=DEFAULT_PILOT_ID)
+    # Points
+    points = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.first_name

@@ -30,7 +30,9 @@ class GPInfo(models.Model):
     fP3_date = models.DateTimeField()
     quali_date = models.DateTimeField()
     race_date = models.DateTimeField()
-        
+
+    double_points = models.BooleanField(default=False)
+    
     # Results
     pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_pole', blank=True, null=True,
         limit_choices_to={'active': True})

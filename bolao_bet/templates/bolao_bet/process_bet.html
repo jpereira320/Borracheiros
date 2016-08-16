@@ -1,0 +1,20 @@
+{% extends 'bolao_main/base.html' %}
+
+{% block title %} Apurar GPrix {% endblock %}
+
+{% block body %}
+
+<form method='post'>{% csrf_token %}
+    
+    <div class="form-group col-md-3">
+        <br>
+        <h3>Escolha o Gp para apurar as apostas</h3>
+        {{ form.as_p }}
+        
+        <input type='submit' value='Apurar'>
+    
+    </div>
+    
+</form>
+
+{% endblock %}

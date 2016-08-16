@@ -49,7 +49,7 @@
                 <!--Only for authenticated users - Show apostar-->
                 {% if request.user.is_authenticated %}
                 <li class="">
-                    <a href="{% url 'bolao_bet:f1bet-add' %}">
+                    <a href="{% url 'bolao_bet:bolao_bet-add' %}">
                         <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>&nbsp; Apostar
                     </a>
                 </li>
@@ -63,7 +63,7 @@
                 <!--Only for staff users - Show advanced options -->
                 {% if request.user.is_staff %}
                 <li class="">
-                    <a href="#">
+                    <a href="{% url 'bolao_bet:bolao_bet-process' %}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Apurar
                     </a>
                 </li>
