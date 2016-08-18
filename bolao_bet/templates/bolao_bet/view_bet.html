@@ -1,0 +1,21 @@
+{% extends 'bolao_main/base.html' %}
+
+{% block title %} Visualizar Apostas {% endblock %}
+
+{% block body %}
+
+<form method='post'>{% csrf_token %}
+    
+    <div class="form-group col-md-3">
+        <br>
+        <h3>Escolha o Gp para visualizar as apostas</h3>
+        {{ form.as_p }}
+        
+        <input type='submit' class="btn btn-primary" value='Visualizar'>
+         <a href="{% url 'bolao_main:index' %}" class="btn btn-info" role="button">Cancelar</a>
+    
+    </div>
+    
+</form>
+
+{% endblock %}

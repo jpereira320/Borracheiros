@@ -6,6 +6,7 @@ from bolao_bet.forms import ProcessBetForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from bolao_main.models import Blog
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -33,8 +34,6 @@ def make_post(request, bet_id):
         try:
             bet_user = bet.user.get_short_name()
 
-            # import pdb;
-            # pdb.set_trace()
         except IOError:
             bet_user = ''
         
@@ -100,3 +99,22 @@ def process_bet(request):
     context = {'form': form, }
     
     return render(request, 'bolao_bet/process_bet.html', context)
+
+
+def view_bet(request):
+    if request.method == 'POST':
+        form = ProcessBetForm(request.POST)
+        if form.is_valid():
+            gp = form.cleaned_data.get('country')
+
+            posts = Blog.objects.filter(title__contains=gp.__str__())
+            posts = posts.filter(title__contains=request.user.get_short_name())
+            context = {'posts': posts}
+            
+            return render(request, 'bolao_bet/view_bet_post.html', context)
+    else:
+        form = ProcessBetForm()
+    
+    context = {'form': form,}
+    
+    return render(request, 'bolao_bet/view_bet.html', context)
