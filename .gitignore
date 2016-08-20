@@ -1,7 +1,8 @@
 *.pyc
 __pycache__
 venv
-/static
+/static1
+/static2
 /Info
 .idea/
 

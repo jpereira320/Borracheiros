@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
+from bolao_main.forms import UserDetailsForm
 
 
 def next_gp():
@@ -50,10 +51,7 @@ def login_view(request):
         messages.warning(request, 'Login falhou! Verifique o nome de usuário e a senha')
     
     # Return to main page
-    return HttpResponseRedirect(reverse('bolao_main:index'), {
-        'posts': latest_posts(),
-        'next_race': next_gp(),
-    })
+    return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
 def logout_view(request):
@@ -61,10 +59,7 @@ def logout_view(request):
     logout(request)
         
     # Return to main page
-    return HttpResponseRedirect(reverse('bolao_main:index'), {
-        'posts': latest_posts(),
-        'next_race': next_gp(),
-    })
+    return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
 def change_user_password_view(request):
@@ -79,28 +74,58 @@ def change_user_password_view(request):
     messages.warning(request, 'Senha de ' + username + ' alterada para ' + password)
     
     # Return to main page
-    return HttpResponseRedirect(reverse('bolao_main:index'), {
-        'posts': latest_posts(),
-        'next_race': next_gp(),
-    })
+    return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
 def change_password(request):
+    
     if request.method == 'POST':
+        
         form = PasswordChangeForm(request.user, data=request.POST)
+        
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user) # dont logout the user.
             messages.success(request, "Password changed.")
             
             # Return to main page
-            return HttpResponseRedirect(reverse('bolao_main:index'), {
-                'posts': latest_posts(),
-                'next_race': next_gp(),
-            })
+            return HttpResponseRedirect(reverse('bolao_main:index'))
     else:
         form = PasswordChangeForm(request.user)
     data = {
         'form': form
     }
     return render(request, "bolao_main/change_password.html", data)
+
+
+def user_detail_view(request):
+    
+    if request.method == 'POST':
+        
+        form = UserDetailsForm(request.POST)
+        
+        if form.is_valid():
+            
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            
+            if form.has_changed():
+                u = User.objects.get(username=request.user.username)
+                
+                if request.user.first_name != first_name:
+                    u.first_name = first_name
+                    u.save()
+                    
+                if request.user.last_name != last_name:
+                    u.last_name = last_name
+                    u.save()
+
+        return HttpResponseRedirect(reverse('bolao_main:index'))
+            
+    else:
+        
+        form = UserDetailsForm(initial={'first_name': request.user.first_name, 'last_name': request.user.last_name})
+    
+    context = {'form': form}
+    
+    return render(request, 'bolao_main/user_details.html', context)

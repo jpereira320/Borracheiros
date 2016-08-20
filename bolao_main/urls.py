@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='main-logout'),
     url(r'^cupassword/$', views.change_user_password_view, name='main-cup'),
     url(r'^cownpassword/$', views.change_password, name='main-cownp'),
+    url(r'^user_detail/$', views.user_detail_view, name='main-userdetail'),
 
 ]

@@ -1,14 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from bolao_bet.models import UserBet
 from django.views.generic.edit import CreateView
-from bolao_main.models import Blog
 from bolao_bet.forms import ProcessBetForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from bolao_main.models import Blog
-from django.contrib import messages
-from django.contrib.auth.models import User
+from bolao_main.views import next_gp
 
 
 class BetCreate(CreateView):
@@ -19,6 +17,9 @@ class BetCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BetCreate, self).form_valid(form)
+
+    def get_initial(self):
+        return {'GPrix': next_gp()}
 
 
 def make_post(request, bet_id):
@@ -102,9 +103,13 @@ def process_bet(request):
 
 
 def view_bet(request):
+    
     if request.method == 'POST':
+        
         form = ProcessBetForm(request.POST)
+        
         if form.is_valid():
+            
             gp = form.cleaned_data.get('country')
 
             posts = Blog.objects.filter(title__contains=gp.__str__())
@@ -115,6 +120,6 @@ def view_bet(request):
     else:
         form = ProcessBetForm()
     
-    context = {'form': form,}
+    context = {'form': form}
     
     return render(request, 'bolao_bet/view_bet.html', context)
