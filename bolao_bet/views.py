@@ -7,23 +7,24 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from bolao_main.models import Blog
 from bolao_main.views import next_gp
+from bolao_bet.process_bet_core import process_bet_core
+from django.contrib import messages
 
 
 class BetCreate(CreateView):
     model = UserBet
     template_name = 'bolao_bet/userbet_form.html'
     fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10']
-
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BetCreate, self).form_valid(form)
-
+    
     def get_initial(self):
         return {'GPrix': next_gp()}
 
 
 def make_post(request, bet_id):
-    
     bet = get_object_or_404(UserBet, pk=bet_id)
     
     # import pdb;
@@ -34,7 +35,7 @@ def make_post(request, bet_id):
         
         try:
             bet_user = bet.user.get_short_name()
-
+        
         except IOError:
             bet_user = ''
         
@@ -86,32 +87,35 @@ def make_post(request, bet_id):
 
 
 def process_bet(request):
-
     if request.method == 'POST':
+        
         form = ProcessBetForm(request.POST)
+        
         if form.is_valid():
             gp = form.cleaned_data.get('country')
-
             
-            # do stuff here
+            process_bet_core(gp)
+
+            messages.warning(request, gp.__str__() + ' apurado com sucesso!')
+
+            return HttpResponseRedirect(reverse('bolao_main:index'))
+            
     else:
         form = ProcessBetForm()
     
-    context = {'form': form, }
+    context = {'form': form,}
     
     return render(request, 'bolao_bet/process_bet.html', context)
 
 
 def view_bet(request):
-    
     if request.method == 'POST':
         
         form = ProcessBetForm(request.POST)
         
         if form.is_valid():
-            
             gp = form.cleaned_data.get('country')
-
+            
             posts = Blog.objects.filter(title__contains=gp.__str__())
             posts = posts.filter(title__contains=request.user.get_short_name())
             context = {'posts': posts}

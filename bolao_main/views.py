@@ -9,15 +9,53 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from bolao_main.forms import UserDetailsForm
+from bolao_bet.models import UserGpPoints, UserTotalPoints
 
 
 def next_gp():
-    if len(GPInfo.objects.filter(race_date__gte=timezone.now())) > 0.5:
-        next_gp = GPInfo.objects.filter(race_date__gte=timezone.now()).order_by('race_date')[0]
+    if GPInfo.objects.filter(race_date__gte=timezone.now()).exists():
+        next_gp = GPInfo.objects.filter(race_date__gte=timezone.now()).earliest('race_date')
     else:
         next_gp = None
-        
+    
     return next_gp
+
+
+def last_processed_gp():
+    if GPInfo.objects.filter(processed=True).exists():
+        last_processed_gp = GPInfo.objects.filter(race_date__lte=timezone.now()).latest('race_date')
+    else:
+        last_processed_gp = None
+    
+    return last_processed_gp
+
+
+def last_gp_standings(gp):
+    if UserGpPoints.objects.filter(GPrix=gp).exists():
+        qs = UserGpPoints.objects.filter(GPrix=gp).order_by('-points')
+        
+        list_user = []
+        list_points = []
+        
+        for item in range(0, qs.count()):
+            list_user.append(qs[item].user.first_name)
+            list_points.append(qs[item].points)
+        
+        return list_user, list_points
+
+
+def ranking(gp):
+    if UserTotalPoints.objects.filter(GPrix=gp).exists():
+        qs = UserTotalPoints.objects.filter(GPrix=gp).order_by('-points')
+        
+        list_user = []
+        list_points = []
+        
+        for item in range(0, qs.count()):
+            list_user.append(qs[item].user.first_name)
+            list_points.append(qs[item].points)
+        
+        return list_user, list_points
 
 
 def latest_posts():
@@ -26,15 +64,25 @@ def latest_posts():
 
 
 def index(request):
+    last_gp = last_processed_gp()
+    list_user, list_points = last_gp_standings(last_gp)
+    ranking_list_user, ranking_list_points = ranking(last_gp)
+    
+    # import pdb;
+    # pdb.set_trace()
     
     return render(request, 'bolao_main/index.html', {
         'posts': latest_posts(),
         'next_race': next_gp(),
+        'last_race': last_gp,
+        'last_gp_results_user': list_user,
+        'last_gp_results_points': list_points,
+        'ranking_list_user': ranking_list_user,
+        'ranking_list_points': ranking_list_points,
     })
 
 
 def login_view(request):
-    
     logout(request)
     
     username = request.POST.get('Username', '')
@@ -55,22 +103,20 @@ def login_view(request):
 
 
 def logout_view(request):
-    
     logout(request)
-        
+    
     # Return to main page
     return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
 def change_user_password_view(request):
-    
     username = request.POST.get('CUP_User', '')
     password = request.POST.get('CUP_Password', '')
-
+    
     u = User.objects.get(username=username)
     u.set_password(password)
     u.save()
-
+    
     messages.warning(request, 'Senha de ' + username + ' alterada para ' + password)
     
     # Return to main page
@@ -78,14 +124,13 @@ def change_user_password_view(request):
 
 
 def change_password(request):
-    
     if request.method == 'POST':
         
         form = PasswordChangeForm(request.user, data=request.POST)
         
         if form.is_valid():
             form.save()
-            update_session_auth_hash(request, form.user) # dont logout the user.
+            update_session_auth_hash(request, form.user)  # dont logout the user.
             messages.success(request, "Password changed.")
             
             # Return to main page
@@ -99,7 +144,6 @@ def change_password(request):
 
 
 def user_detail_view(request):
-    
     if request.method == 'POST':
         
         form = UserDetailsForm(request.POST)
@@ -115,13 +159,13 @@ def user_detail_view(request):
                 if request.user.first_name != first_name:
                     u.first_name = first_name
                     u.save()
-                    
+                
                 if request.user.last_name != last_name:
                     u.last_name = last_name
                     u.save()
-
+        
         return HttpResponseRedirect(reverse('bolao_main:index'))
-            
+    
     else:
         
         form = UserDetailsForm(initial={'first_name': request.user.first_name, 'last_name': request.user.last_name})

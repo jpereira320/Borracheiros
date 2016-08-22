@@ -13,4 +13,9 @@ def getposition(value, arg):
     return b[position]
 
 
-
+@register.filter(name='getlistitem')
+def getlistitem(value, arg):
+    original_list = value
+    position = arg
+    
+    return original_list[position]

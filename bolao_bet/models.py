@@ -15,6 +15,8 @@ class UserBet(models.Model):
     date = models.DateTimeField(default=timezone.now)
     # Where
     GPrix = models.ForeignKey(GPInfo, on_delete=models.CASCADE)
+    # Is bet valid
+    valid = models.BooleanField(default=True)
     
     # Bet
     pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='pole', blank=True, null=True,
@@ -44,7 +46,7 @@ class UserBet(models.Model):
         return reverse('bolao_bet:make-post', args=(self.id,))
     
     def __str__(self):
-        return self.GPrix.country + self.GPrix.year.__str__()
+        return self.GPrix.country + self.GPrix.year.__str__() + '_' + self.user.first_name
     
     
 class UserGpPoints(models.Model):
@@ -56,14 +58,16 @@ class UserGpPoints(models.Model):
     points = models.IntegerField(blank=True, null=True)
     
     def __str__(self):
-        return self.user.first_name + self.GPrix.country + self.GPrix.year.__str__()
+        return self.GPrix.country + self.GPrix.year.__str__() + '_' + self.user.first_name
 
 
 class UserTotalPoints(models.Model):
     # Who
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=DEFAULT_PILOT_ID)
+    # Where
+    GPrix = models.ForeignKey(GPInfo, on_delete=models.CASCADE, null=True)
     # Points
     points = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.GPrix.country + self.GPrix.year.__str__() + '_' + self.user.first_name
