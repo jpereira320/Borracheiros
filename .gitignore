@@ -5,4 +5,4 @@ venv
 /static2
 /Info
 .idea/
-
+/bolaoweb/local_settings.py
