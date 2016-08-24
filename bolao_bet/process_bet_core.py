@@ -17,8 +17,10 @@ def process_bet_core(gp):
             
             if gp.race_number > 1.5:
                 
-                if UserBet.objects.filter(user=user, GPrix__race_number=gp.race_number - 1).exists():
-                    previous_bet = UserBet.objects.filter(user=user, GPrix__race_number=gp.race_number - 1).latest(
+                if UserBet.objects.filter(user=user, GPrix__year=gp.year,
+                        GPrix__race_number=gp.race_number - 1).exists():
+                    previous_bet = UserBet.objects.filter(user=user, GPrix__year=gp.year,
+                        GPrix__race_number=gp.race_number - 1).latest(
                         'date')
                     
                     bet = UserBet(user=user, GPrix=gp, date=timezone.now())
@@ -88,11 +90,12 @@ def process_bet_core(gp):
         
         if gp.race_number > 1.5:
             
-            if UserTotalPoints.objects.filter(user=user, GPrix__race_number=gp.race_number - 1).exists():
-                previous_total_points = UserTotalPoints.objects.filter(user=user,
+            if UserTotalPoints.objects.filter(user=user, GPrix__year=gp.year,
+                    GPrix__race_number=gp.race_number - 1).exists():
+                previous_total_points = UserTotalPoints.objects.filter(user=user, GPrix__year=gp.year,
                     GPrix__race_number=gp.race_number - 1)
                 previous_total_points = previous_total_points[0]
-                
+            
             else:
                 previous_total_points.points = 0
         

@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from bolao_main.forms import UserDetailsForm
 from bolao_bet.models import UserGpPoints, UserTotalPoints
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def next_gp():
@@ -30,7 +32,7 @@ def last_processed_gp():
     return last_processed_gp
 
 
-def last_gp_standings(gp):
+def last_gp_results(gp):
     if UserGpPoints.objects.filter(GPrix=gp).exists():
         qs = UserGpPoints.objects.filter(GPrix=gp).order_by('-points')
         
@@ -40,8 +42,11 @@ def last_gp_standings(gp):
         for item in range(0, qs.count()):
             list_user.append(qs[item].user.first_name)
             list_points.append(qs[item].points)
-        
-        return list_user, list_points
+            
+    else:
+        list_user = list_points = None
+    
+    return list_user, list_points
 
 
 def ranking(gp):
@@ -54,8 +59,11 @@ def ranking(gp):
         for item in range(0, qs.count()):
             list_user.append(qs[item].user.first_name)
             list_points.append(qs[item].points)
-        
-        return list_user, list_points
+            
+    else:
+        list_user = list_points = None
+    
+    return list_user, list_points
 
 
 def latest_posts():
@@ -65,7 +73,7 @@ def latest_posts():
 
 def index(request):
     last_gp = last_processed_gp()
-    list_user, list_points = last_gp_standings(last_gp)
+    list_user, list_points = last_gp_results(last_gp)
     ranking_list_user, ranking_list_points = ranking(last_gp)
     
     # import pdb;
@@ -109,6 +117,7 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
+@staff_member_required
 def change_user_password_view(request):
     username = request.POST.get('CUP_User', '')
     password = request.POST.get('CUP_Password', '')
@@ -123,6 +132,7 @@ def change_user_password_view(request):
     return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
+@login_required
 def change_password(request):
     if request.method == 'POST':
         
@@ -143,6 +153,7 @@ def change_password(request):
     return render(request, "bolao_main/change_password.html", data)
 
 
+@login_required
 def user_detail_view(request):
     if request.method == 'POST':
         

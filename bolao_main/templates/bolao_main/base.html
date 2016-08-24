@@ -39,12 +39,16 @@
         <!--Items-->
         <div class="collapse navbar-collapse" id="topNavBar">
             
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href=http://www.F1.com>
-                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; F1
-                    </a>
-                </li>
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li>-->
+                    <!--<a href=http://www.F1.com>-->
+                        <!--<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; F1-->
+                    <!--</a>-->
+                <!--</li>-->
+
+            <!--</ul>-->
+            
+            <ul class="nav navbar-nav navbar-right">
                 
                 <!--Only for authenticated users - Show apostar-->
                 {% if request.user.is_authenticated %}
@@ -53,12 +57,12 @@
                         <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>&nbsp; Apostar
                     </a>
                 </li>
-                
+                <li class="">
+                    <a href="{% url 'bolao_bet:bolao_bet-results' %}">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Resultados
+                    </a>
+                </li>
                 {% endif %}
-            
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
                 
                 <!--Only for staff users - Show advanced options -->
                 {% if request.user.is_staff %}
@@ -77,13 +81,6 @@
                 
                 {% include 'bolao_main/login_modal.html' %}
                 
-                {% else %}
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> BLA
-                    </a>
-                </li>
-                
                 {% endif %}
                 
                 <!--Only for authenticated users - Show user menu-->
@@ -93,9 +90,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                             aria-expanded="false">{{ request.user.first_name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'bolao_bet:bolao_bet-view' %}"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Apostas</a>
+                        <li><a href="{% url 'bolao_bet:bolao_bet-view' %}"><span class="glyphicon glyphicon-dashboard"
+                                aria-hidden="true"></span> Apostas</a>
                         </li>
-                        <li><a href="{% url 'bolao_main:main-userdetail' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil</a>
+                        <li><a href="{% url 'bolao_main:main-userdetail' %}"><span class="glyphicon glyphicon-user"
+                                aria-hidden="true"></span> Perfil</a>
                         </li>
                         <li><a href="{% url 'bolao_main:main-cownp' %}"><span class="glyphicon glyphicon-lock"
                                 aria-hidden="true"></span> Alterar Senha</a>

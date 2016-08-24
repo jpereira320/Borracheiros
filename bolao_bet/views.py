@@ -1,14 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from bolao_bet.models import UserBet
 from django.views.generic.edit import CreateView
-from bolao_bet.forms import ProcessBetForm
+from bolao_bet.forms import ProcessBetForm, ViewResultsForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from bolao_main.models import Blog
-from bolao_main.views import next_gp
+from bolao_main.views import next_gp, last_gp_results
 from bolao_bet.process_bet_core import process_bet_core
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 class BetCreate(CreateView):
@@ -24,11 +26,9 @@ class BetCreate(CreateView):
         return {'GPrix': next_gp()}
 
 
+@login_required
 def make_post(request, bet_id):
     bet = get_object_or_404(UserBet, pk=bet_id)
-    
-    # import pdb;
-    # pdb.set_trace()
     
     try:
         bet_user = ''
@@ -86,6 +86,7 @@ def make_post(request, bet_id):
     return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
+@staff_member_required
 def process_bet(request):
     if request.method == 'POST':
         
@@ -95,11 +96,11 @@ def process_bet(request):
             gp = form.cleaned_data.get('country')
             
             process_bet_core(gp)
-
-            messages.warning(request, gp.__str__() + ' apurado com sucesso!')
-
-            return HttpResponseRedirect(reverse('bolao_main:index'))
             
+            messages.warning(request, gp.__str__() + ' apurado com sucesso!')
+            
+            return HttpResponseRedirect(reverse('bolao_main:index'))
+    
     else:
         form = ProcessBetForm()
     
@@ -108,6 +109,7 @@ def process_bet(request):
     return render(request, 'bolao_bet/process_bet.html', context)
 
 
+@login_required
 def view_bet(request):
     if request.method == 'POST':
         
@@ -127,3 +129,28 @@ def view_bet(request):
     context = {'form': form}
     
     return render(request, 'bolao_bet/view_bet.html', context)
+
+
+@login_required
+def view_results(request):
+    if request.method == 'POST':
+        
+        form = ViewResultsForm(request.POST)
+        
+        if form.is_valid():
+            gp = form.cleaned_data.get('country')
+            list_user, list_points = last_gp_results(gp)
+            
+            context = {
+                'gp': gp,
+                'gp_results_user': list_user,
+                'gp_results_points': list_points,
+            }
+            
+            return render(request, 'bolao_bet/view_gp_results_post.html', context)
+    else:
+        form = ViewResultsForm()
+    
+    context = {'form': form}
+    
+    return render(request, 'bolao_bet/view_gp_results.html', context)

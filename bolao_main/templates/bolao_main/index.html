@@ -62,7 +62,17 @@
                             
                             {% load app_filters %}
                             {% for item in ranking_list_user %}
+                            
+                            {% if forloop.counter == 1 %}
+                            <tr style="background-color:#ffffb3;">
+                            {% elif forloop.counter == 2 %}
+                            <tr style="background-color:#cccccc;">
+                            {% elif forloop.last %}
+                            <tr style="background-color:#ffc266;">
+                            {% else %}
                             <tr>
+                            {% endif %}
+                                
                                 <td>{{ item }}</td>
                                 <td class="strong">{{ ranking_list_points|getlistitem:forloop.counter0 }}</td>
                             
@@ -79,7 +89,7 @@
             </div><!-- panel -->
         </div><!-- Championship Ranking -->
         
-        <!--Last Race standings-->
+        <!--Last Race results-->
         <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-0">
             <div class="panel panel-default">
                 <h3 class="text-muted" style="text-align:center">Último Resultado</h3>
@@ -141,7 +151,7 @@
                     </div>
                 </div>
             </div><!-- panel -->
-        </div><!-- last race standings -->
+        </div><!-- last race results -->
         
         <!--Next race-->
         <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-0">

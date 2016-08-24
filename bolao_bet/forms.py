@@ -13,4 +13,16 @@ class ProcessBetForm(forms.ModelForm):
         
         super(ProcessBetForm, self).__init__(*args, **kwargs)
         self.fields['country'] = forms.ModelChoiceField(
-            queryset=GPInfo.objects.all(), label='GP: ')
+            queryset=GPInfo.objects.all(), label='GP ')
+
+
+# Create the form class.
+class ViewResultsForm(forms.ModelForm):
+    class Meta:
+        model = GPInfo
+        fields = ['country']
+    
+    def __init__(self, *args, **kwargs):
+        super(ViewResultsForm, self).__init__(*args, **kwargs)
+        self.fields['country'] = forms.ModelChoiceField(
+            queryset=GPInfo.objects.filter(processed=True), label='GP ')

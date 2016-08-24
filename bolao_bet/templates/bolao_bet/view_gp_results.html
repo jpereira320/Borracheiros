@@ -1,6 +1,6 @@
 {% extends 'bolao_main/base.html' %}
 
-{% block title %} Apurar GPrix {% endblock %}
+{% block title %} Visualizar Resultados {% endblock %}
 
 {% block body %}
 
@@ -8,12 +8,14 @@
     
     <div class="container-fluid">
         <div class="form-group panel panel-default col-xs-12 col-md-6" style="margin-bottom: 20px">
-            <h3>Escolha o Gp para apurar as apostas</h3>
+            <h3>Escolha o Gp para visualizar os resultados</h3>
+            
             {{ form.as_p }}
             
-            <input type='submit' class="btn btn-primary" value='Apurar'>
+            <input type='submit' class="btn btn-primary" value='Visualizar'>
             <a href="{% url 'bolao_main:index' %}" class="btn btn-info" role="button">Cancelar</a>
             <p> </p>
+        
         </div>
     </div>
 

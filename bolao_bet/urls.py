@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'view_bet$', views.view_bet, name='bolao_bet-view'),
     # make post
     url(r'^make_post/(?P<bet_id>[0-9]+)/$', views.make_post, name='make-post'),
+    url(r'results$', views.view_results, name='bolao_bet-results'),
 ]
