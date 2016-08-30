@@ -25,7 +25,7 @@ def next_gp():
 
 def last_processed_gp():
     if GPInfo.objects.filter(processed=True).exists():
-        last_processed_gp = GPInfo.objects.filter(race_date__lte=timezone.now()).latest('race_date')
+        last_processed_gp = GPInfo.objects.filter(processed=True).latest('race_date')
     else:
         last_processed_gp = None
     

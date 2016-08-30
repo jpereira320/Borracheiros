@@ -126,8 +126,8 @@ def gp_points_position(position, bet_p, gp):
     gp_pos += (bet_p == gp.p9) * 9
     gp_pos += (bet_p == gp.p10) * 10
     
-    if gp_pos == 0:
-        gp_pos == 22
+    if gp_pos < 0.5:
+        gp_pos = 22
     
     if (position + abs(gp_pos - position)) > 10:
         result = 0

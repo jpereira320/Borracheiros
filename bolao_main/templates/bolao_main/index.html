@@ -4,6 +4,23 @@
 
 {% block body %}
 
+<div class="container">
+    <div class="row">
+        <!--Messages displsy-->
+        <div class="col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10">
+            
+            <img class="img-rounded center-block"
+                    style="display: block; max-width: 80%; height: auto"
+                    src="{% static 'bolao_main/images/Logo.png' %}">
+            
+            <hr class="featurette-divider"
+                    style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+        
+        </div>
+    </div>
+</div>
+
+
 {% if messages %}
 <div class="row">
     <!--Messages displsy-->
@@ -65,13 +82,13 @@
                             
                             {% if forloop.counter == 1 %}
                             <tr style="background-color:#ffffb3;">
-                            {% elif forloop.counter == 2 %}
+                                {% elif forloop.counter == 2 %}
                             <tr style="background-color:#cccccc;">
-                            {% elif forloop.last %}
+                                {% elif forloop.last %}
                             <tr style="background-color:#ffc266;">
-                            {% else %}
+                                {% else %}
                             <tr>
-                            {% endif %}
+                                {% endif %}
                                 
                                 <td>{{ item }}</td>
                                 <td class="strong">{{ ranking_list_points|getlistitem:forloop.counter0 }}</td>
@@ -130,13 +147,13 @@
                             
                             {% if forloop.counter == 1 %}
                             <tr style="background-color:#ffffb3;">
-                            {% elif forloop.counter == 2 %}
+                                {% elif forloop.counter == 2 %}
                             <tr style="background-color:#cccccc;">
-                            {% elif forloop.last %}
+                                {% elif forloop.last %}
                             <tr style="background-color:#ffc266;">
-                            {% else %}
+                                {% else %}
                             <tr>
-                            {% endif %}
+                                {% endif %}
                                 
                                 <td>{{ item }}</td>
                                 <td class="strong">{{ last_gp_results_points|getlistitem:forloop.counter0 }}</td>
