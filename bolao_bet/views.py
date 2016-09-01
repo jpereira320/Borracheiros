@@ -80,6 +80,9 @@ def make_post(request, bet_id):
                      'P10: ' + bet_p10)
         
         post.save()
+
+        messages.warning(request, 'Aposta para o ' + bet_gprix + ' realizada com sucesso!')
+        
     # Always return an HttpResponseRedirect after successfully dealing
     # with POST data. This prevents data from being posted twice if a
     # user hits the Back button.

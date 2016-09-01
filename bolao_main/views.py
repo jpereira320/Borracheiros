@@ -34,10 +34,13 @@ def last_processed_gp():
 
 def last_gp_results(gp):
     if UserGpPoints.objects.filter(GPrix=gp).exists():
-        qs = UserGpPoints.objects.filter(GPrix=gp).order_by('-points')
+        qs = UserGpPoints.objects.filter(GPrix=gp).order_by('-points', 'user__first_name')
         
         list_user = []
         list_points = []
+
+        # import pdb;
+        # pdb.set_trace()
         
         for item in range(0, qs.count()):
             list_user.append(qs[item].user.first_name)
@@ -51,7 +54,7 @@ def last_gp_results(gp):
 
 def ranking(gp):
     if UserTotalPoints.objects.filter(GPrix=gp).exists():
-        qs = UserTotalPoints.objects.filter(GPrix=gp).order_by('-points')
+        qs = UserTotalPoints.objects.filter(GPrix=gp).order_by('-points', 'user__first_name')
         
         list_user = []
         list_points = []
