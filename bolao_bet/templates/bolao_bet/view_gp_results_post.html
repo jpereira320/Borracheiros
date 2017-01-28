@@ -8,72 +8,173 @@
 
 <div class="container-fluid">
     
-   <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-0">
-            <div class="panel panel-default">
-                <h3 class="text-muted" style="text-align:center">Resultado</h3>
-                
-                <ul class="list-unstyled" style="text-align:center">
-                    <li>
-                        <hr class="featurette-divider"
-                                style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
-                    </li>
+    <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-0"> <!-- Bet resulta-->
+        <div class="panel panel-default">
+            <h3 class="text-muted" style="text-align:center">Resultado Apurado</h3>
+            
+            <ul class="list-unstyled" style="text-align:center">
+                <li>
+                    <hr class="featurette-divider"
+                            style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                </li>
+                {% if gp != None %}
+                <li class=""><h3>{{ gp.country }} {{ gp.year }}</h3></li>
+                {% else %}
+                <li class=""><h3>Não Disponível</h3></li>
+                {% endif %}
+                <li>
+                    <hr class="featurette-divider"
+                            style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                </li>
+            </ul>
+            
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1  col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
                     {% if gp != None %}
-                    <li class=""><h3>{{ gp.country }} {{ gp.year }}</h3></li>
-                    {% else %}
-                    <li class=""><h3>Não Disponível</h3></li>
-                    {% endif %}
-                    <li>
-                        <hr class="featurette-divider"
-                                style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
-                    </li>
-                </ul>
-                
-                <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1  col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
-                        {% if gp != None %}
-                        <table class="table table-striped"
-                                style="margin-left: 0%;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:18px;font-size:1.5rem">
-                            <thead>
-                            <tr>
-                                
-                                <th>Apostador</th>
-                                <th>Pontos</th>
+                    <table class="table table-striped"
+                            style="margin-left: 0%;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:18px;font-size:1.5rem">
+                        <thead>
+                        <tr>
                             
-                            </tr>
-                            </thead>
-                            <tbody style="text-align:left">
-                            
-                            {% load app_filters %}
-                            {% for item in gp_results_user %}
-                            
-                            {% if forloop.counter == 1 %}
-                            <tr style="background-color:#ffffb3;">
+                            <th>Posição</th>
+                            <th>Apostador</th>
+                            <th>Pontos</th>
+                        
+                        </tr>
+                        </thead>
+                        <tbody style="text-align:left">
+                        
+                        {% load app_filters %}
+                        {% for item in gp_results_user %}
+                        
+                        {% if forloop.counter == 1 %}
+                        <tr style="background-color:#ffffb3;">
                             {% elif forloop.counter == 2 %}
-                            <tr style="background-color:#cccccc;">
+                        <tr style="background-color:#cccccc;">
                             {% elif forloop.last %}
-                            <tr style="background-color:#ffc266;">
+                        <tr style="background-color:#ffc266;">
                             {% else %}
-                            <tr>
+                        <tr>
                             {% endif %}
-                                
-                                <td>{{ item }}</td>
-                                <td class="strong">{{ gp_results_points|getlistitem:forloop.counter0 }}</td>
                             
-                            </tr>
-                            
-                            {% endfor %}
-                            
-                            </tbody>
-                        </table>
-                        {% endif %}
-                    </div>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item }}</td>
+                            <td class="strong">{{ gp_results_points|getlistitem:forloop.counter0 }}</td>
+                        
+                        </tr>
+                        
+                        {% endfor %}
+                        
+                        </tbody>
+                    </table>
+                    {% endif %}
                 </div>
-            </div><!-- panel -->
-        </div><!-- last race results -->
+            </div>
+        </div><!-- panel -->
+    </div><!-- bet results -->
+    
+    <div class="col-xs-12 col-xs-offset-0 col-md-4 col-md-offset-0"><!--Gp Results-->
+        <div class="panel panel-default">
+            <h3 class="text-muted" style="text-align:center">Resultado do GP</h3>
+            
+            <ul class="list-unstyled" style="text-align:center">
+                <li>
+                    <hr class="featurette-divider"
+                            style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                </li>
+                {% if gp != None %}
+                <li class=""><h3>{{ gp.country }} {{ gp.year }}</h3></li>
+                {% else %}
+                <li class=""><h3>Não Disponível</h3></li>
+                {% endif %}
+                <li>
+                    <hr class="featurette-divider"
+                            style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                </li>
+            </ul>
+            
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1  col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                    {% if gp != None %}
+                    <table class="table table-striped"
+                            style="margin-left: 0%;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:18px;font-size:1.5rem">
+                        <thead>
+                        <tr>
+                            
+                            <th>Posição</th>
+                            <th>Piloto</th>
+                        
+                        </tr>
+                        </thead>
+                        <tbody style="text-align:left">
+                        
+                        <tr>
+                            <td>Pole</td>
+                            <td>{{ gp.pole }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P1</td>
+                            <td>{{ gp.p1 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P2</td>
+                            <td>{{ gp.p2 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P3</td>
+                            <td>{{ gp.p3 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P4</td>
+                            <td>{{ gp.p4 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P5</td>
+                            <td>{{ gp.p5 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P6</td>
+                            <td>{{ gp.p6 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P7</td>
+                            <td>{{ gp.p7 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P8</td>
+                            <td>{{ gp.p8 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P9</td>
+                            <td>{{ gp.p9 }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>P10</td>
+                            <td>{{ gp.p10 }}</td>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div><!-- panel -->
+    </div><!-- last gp results -->
 </div>
 {% else %}
 <div class="row featurette panel panel-default col-sm-offset-2 col-sm-8 col-md-8 col-lg-offset-3 col-lg-6"
-style="text-align: center; padding-bottom: 40px;">
+        style="text-align: center; padding-bottom: 40px;">
     <h3>Resultdos não encontrados!</h3>
 </div>
 {% endif %}

@@ -69,7 +69,7 @@
                                 style="margin-left: 0%;text-align:left;text-transform:uppercase;font-weight:500;color:#808080;font-size:18px;font-size:1.5rem">
                             <thead>
                             <tr>
-                                
+                                <th>Posição</th>
                                 <th>Apostador</th>
                                 <th>Pontos</th>
                             
@@ -90,6 +90,7 @@
                             <tr>
                                 {% endif %}
                                 
+                                <td>{{ forloop.counter }}</td>
                                 <td>{{ item }}</td>
                                 <td class="strong">{{ ranking_list_points|getlistitem:forloop.counter0 }}</td>
                             
@@ -135,6 +136,7 @@
                             <thead>
                             <tr>
                                 
+                                <th>Posição</th>
                                 <th>Apostador</th>
                                 <th>Pontos</th>
                             
@@ -155,6 +157,7 @@
                             <tr>
                                 {% endif %}
                                 
+                                <td>{{ forloop.counter }}</td>
                                 <td>{{ item }}</td>
                                 <td class="strong">{{ last_gp_results_points|getlistitem:forloop.counter0 }}</td>
                             
