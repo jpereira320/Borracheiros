@@ -1,6 +1,7 @@
 from bolao_bet.models import UserBet, UserGpPoints, UserTotalPoints
 from django.contrib.auth.models import User
 from django.utils import timezone
+import bolao_bet.views
 
 
 def process_bet_core(gp):
@@ -35,6 +36,9 @@ def process_bet_core(gp):
                     bet.p8 = previous_bet.p8
                     bet.p9 = previous_bet.p9
                     bet.p10 = previous_bet.p10
+                    
+                    bet.repeated = True
+                    
                     bet.save()
                 
                 else:
@@ -44,6 +48,11 @@ def process_bet_core(gp):
         
         if bet.valid:
             
+            # repost bet
+            bet.hidden = False
+            bolao_bet.views.make_repost(bet.pk)
+            
+            # Calculate GP points for current user
             if UserGpPoints.objects.filter(user=user, GPrix=gp).exists():
                 new_points = UserGpPoints.objects.filter(user=user, GPrix=gp)
                 new_points = new_points[0]
@@ -105,8 +114,8 @@ def process_bet_core(gp):
         total_points.points = previous_total_points.points + new_points.points
         total_points.save()
         
-        gp.processed = True
-        gp.save()
+    gp.processed = True
+    gp.save()
 
 
 def gp_points_position(position, bet_p, gp):

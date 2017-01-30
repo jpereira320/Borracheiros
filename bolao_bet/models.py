@@ -17,6 +17,10 @@ class UserBet(models.Model):
     GPrix = models.ForeignKey(GPInfo, on_delete=models.CASCADE)
     # Is bet valid
     valid = models.BooleanField(default=True)
+    # Is bet hidden
+    hidden = models.BooleanField(default=False)
+    # Is bet repeated
+    repeated = models.BooleanField(default=False)
     
     # Bet
     pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='pole', blank=True, null=True,
