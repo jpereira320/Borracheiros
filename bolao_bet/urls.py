@@ -5,7 +5,8 @@ app_name = 'bolao_bet'
 
 urlpatterns = [
     # /bolao_bet/
-    url(r'bet/add/$', views.BetCreate.as_view(), name='bolao_bet-add'),
+    #url(r'bet/add/$', views.BetCreate.as_view(), name='bolao_bet-add'),
+    url(r'bet/add/$', views.create_bet, name='bolao_bet-add'),
     url(r'process_bet$', views.process_bet, name='bolao_bet-process'),
     url(r'view_bet$', views.view_bet, name='bolao_bet-view'),
     # make post

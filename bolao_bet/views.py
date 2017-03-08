@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from bolao_bet.models import UserBet
 from django.views.generic.edit import CreateView
-from bolao_bet.forms import ProcessBetForm, ViewResultsForm
+from bolao_bet.forms import ProcessBetForm, ViewResultsForm, CreateBetForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
@@ -11,6 +11,7 @@ from bolao_bet.process_bet_core import process_bet_core
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+import datetime
 
 
 class BetCreate(CreateView):
@@ -24,6 +25,44 @@ class BetCreate(CreateView):
     
     def get_initial(self):
         return {'GPrix': next_gp()}
+
+
+@login_required
+def create_bet(request):
+    if request.method == 'POST':
+
+        form = CreateBetForm(request.POST)
+
+        if form.is_valid():
+            # import pdb;
+            # pdb.set_trace()
+
+            bet = UserBet()
+            bet.user = request.user
+            bet.GPrix = form.cleaned_data.get('GPrix')
+            bet.pole = form.cleaned_data.get('pole')
+            bet.p1 = form.cleaned_data.get('p1')
+            bet.p2 = form.cleaned_data.get('p2')
+            bet.p3 = form.cleaned_data.get('p3')
+            bet.p4 = form.cleaned_data.get('p4')
+            bet.p5 = form.cleaned_data.get('p5')
+            bet.p6 = form.cleaned_data.get('p6')
+            bet.p7 = form.cleaned_data.get('p7')
+            bet.p8 = form.cleaned_data.get('p8')
+            bet.p9 = form.cleaned_data.get('p9')
+            bet.p10 = form.cleaned_data.get('p10')
+            bet.save()
+
+            return HttpResponseRedirect(reverse('bolao_bet:make-post', args=(bet.pk,)))
+        else:
+            return HttpResponseRedirect(reverse('bolao_main:index'))
+
+    else:
+        form = CreateBetForm(initial={'GPrix': next_gp})
+
+    context = {'form': form}
+
+    return render(request, 'bolao_bet/create_bet.html', context)
 
 
 @login_required
@@ -92,7 +131,6 @@ def make_post(request, bet_id):
     return HttpResponseRedirect(reverse('bolao_main:index'))
 
 
-@login_required
 def make_repost(bet_id):
     bet = get_object_or_404(UserBet, pk=bet_id)
     
@@ -106,7 +144,6 @@ def make_repost(bet_id):
         bet_user = bet.user.username
     
     bet_gprix = bet.GPrix.__str__()
-    bet_date = bet.date.__str__()
     
     bet_pole = bet.pole.name
     bet_p1 = bet.p1.name
@@ -122,7 +159,7 @@ def make_repost(bet_id):
 
     post = Blog()
     post.title = 'Aposta de ' + bet_user + ' - ' + bet_gprix
-    post.slug = slugify(post.title + bet_date)
+    post.slug = slugify('repost_' + post.title + '_' + datetime.datetime.now().isoformat())
     
     post.hidden = bet.hidden
     
