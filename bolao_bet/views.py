@@ -51,6 +51,7 @@ def create_bet(request):
             bet.p8 = form.cleaned_data.get('p8')
             bet.p9 = form.cleaned_data.get('p9')
             bet.p10 = form.cleaned_data.get('p10')
+            bet.hidden = form.cleaned_data.get('hidden')
             bet.save()
 
             return HttpResponseRedirect(reverse('bolao_bet:make-post', args=(bet.pk,)))
@@ -160,9 +161,8 @@ def make_repost(bet_id):
     post = Blog()
     post.title = 'Aposta de ' + bet_user + ' - ' + bet_gprix
     post.slug = slugify('repost_' + post.title + '_' + datetime.datetime.now().isoformat())
-    
-    post.hidden = bet.hidden
-    
+    post.posted = bet.date
+
     post.body = (bet_gprix + '\n' + 'Pole: ' + bet_pole + '\n' +
                  'P1: ' + bet_p1 + '\n' +
                  'P2: ' + bet_p2 + '\n' +

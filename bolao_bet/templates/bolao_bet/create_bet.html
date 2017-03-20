@@ -1,4 +1,4 @@
-{% extends 'bolao_bet/base.html' %}
+{% extends 'bolao_main/base.html' %}
 
 {% block body %}
 
@@ -18,13 +18,13 @@
     <div class="form-group panel panel-default col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4
      col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
         <br>
-        <div class="row col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-5">
+        <div class="row col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-4">
 
                 {{ form.as_p }}
 
         </div>
         <br>
-        <div class="row col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-5">
+        <div class="row col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
             <button type="submit" class="btn btn-primary">Apostar</button>
             <a href="{% url 'bolao_main:index' %}" class="btn btn-info" role="button">Cancelar</a>
         </div>

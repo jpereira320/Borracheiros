@@ -43,13 +43,16 @@ def process_bet_core(gp):
                 
                 else:
                     bet.valid = False
+                    bet.save()
             else:
                 bet.valid = False
+                bet.save()
         
         if bet.valid:
             
             # repost bet
             bet.hidden = False
+            bet.save()
             bolao_bet.views.make_repost(bet.pk)
             
             # Calculate GP points for current user
