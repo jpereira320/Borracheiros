@@ -107,14 +107,14 @@ def process_bet_core(gp):
                 previous_total_points = UserTotalPoints.objects.filter(user=user, GPrix__year=gp.year,
                     GPrix__race_number=gp.race_number - 1)
                 previous_total_points = previous_total_points[0]
+                total_points.points = previous_total_points.points + new_points.points
             
             else:
-                previous_total_points.points = 0
+                total_points.points = new_points.points
         
         else:
-            previous_total_points.points = 0
-        
-        total_points.points = previous_total_points.points + new_points.points
+            total_points.points = 0
+
         total_points.save()
         
     gp.processed = True
