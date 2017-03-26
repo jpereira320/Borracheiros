@@ -70,7 +70,7 @@ def ranking(gp):
 
 
 def latest_posts():
-    n_posts = 25
+    n_posts = 35
     return Blog.objects.all()[max(Blog.objects.all().__len__() - n_posts, 0):Blog.objects.all().__len__():-1]
 
 

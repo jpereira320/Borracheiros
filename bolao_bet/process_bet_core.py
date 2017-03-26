@@ -113,7 +113,7 @@ def process_bet_core(gp):
                 total_points.points = new_points.points
         
         else:
-            total_points.points = 0
+            total_points.points = new_points.points
 
         total_points.save()
         
