@@ -159,7 +159,12 @@ def make_repost(bet_id):
     bet_p10 = bet.p10.name
 
     post = Blog()
-    post.title = 'Aposta de ' + bet_user + ' - ' + bet_gprix
+
+    if bet.repeated:
+        post.title = 'Aposta repetida de ' + bet_user + ' - ' + bet_gprix
+    else:
+        post.title = 'Aposta de ' + bet_user + ' - ' + bet_gprix
+
     post.slug = slugify('repost_' + post.title + '_' + datetime.datetime.now().isoformat())
     post.posted = bet.date
 
