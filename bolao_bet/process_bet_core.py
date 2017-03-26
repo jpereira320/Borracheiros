@@ -87,7 +87,8 @@ def process_bet_core(gp):
             
             if UserGpPoints.objects.filter(user=user, GPrix=gp).exists():
                 new_points = UserGpPoints.objects.filter(user=user, GPrix=gp)
-            
+                new_points = new_points[0]
+
             else:
                 new_points = UserGpPoints(user=user, GPrix=gp)
             
