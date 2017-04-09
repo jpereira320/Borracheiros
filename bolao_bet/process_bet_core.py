@@ -24,22 +24,28 @@ def process_bet_core(gp):
                         GPrix__race_number=gp.race_number - 1).latest(
                         'date')
                     
-                    bet = UserBet(user=user, GPrix=gp, date=timezone.now())
-                    bet.pole = previous_bet.pole
-                    bet.p1 = previous_bet.p1
-                    bet.p2 = previous_bet.p2
-                    bet.p3 = previous_bet.p3
-                    bet.p4 = previous_bet.p4
-                    bet.p5 = previous_bet.p5
-                    bet.p6 = previous_bet.p6
-                    bet.p7 = previous_bet.p7
-                    bet.p8 = previous_bet.p8
-                    bet.p9 = previous_bet.p9
-                    bet.p10 = previous_bet.p10
-                    
-                    bet.repeated = True
-                    
-                    bet.save()
+                    if previous_bet.valid:
+
+                        bet = UserBet(user=user, GPrix=gp, date=timezone.now())
+                        bet.pole = previous_bet.pole
+                        bet.p1 = previous_bet.p1
+                        bet.p2 = previous_bet.p2
+                        bet.p3 = previous_bet.p3
+                        bet.p4 = previous_bet.p4
+                        bet.p5 = previous_bet.p5
+                        bet.p6 = previous_bet.p6
+                        bet.p7 = previous_bet.p7
+                        bet.p8 = previous_bet.p8
+                        bet.p9 = previous_bet.p9
+                        bet.p10 = previous_bet.p10
+
+                        bet.repeated = True
+
+                        bet.save()
+
+                    else:
+                        bet.valid = False
+                        bet.save()
                 
                 else:
                     bet.valid = False
