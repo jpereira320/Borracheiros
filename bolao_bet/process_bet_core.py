@@ -2,6 +2,7 @@ from bolao_bet.models import UserBet, UserGpPoints, UserTotalPoints
 from django.contrib.auth.models import User
 from django.utils import timezone
 import bolao_bet.views
+import math
 
 
 def process_bet_core(gp):
@@ -83,6 +84,9 @@ def process_bet_core(gp):
             
             if gp.double_points:
                 new_points.points *= 2
+
+            if bet.repeated:
+                new_points.points = math.trunc(new_points.points / 2)
             
             # import pdb;
             # pdb.set_trace()
