@@ -2,7 +2,6 @@ from bolao_bet.models import UserBet, UserGpPoints, UserTotalPoints
 from django.contrib.auth.models import User
 from django.utils import timezone
 import bolao_bet.views
-import math
 
 
 def process_bet_core(gp):
@@ -39,6 +38,8 @@ def process_bet_core(gp):
                         bet.p8 = previous_bet.p8
                         bet.p9 = previous_bet.p9
                         bet.p10 = previous_bet.p10
+                        bet.DoD = previous_bet.DoD
+                        bet.BestLap = previous_bet.BestLap
 
                         bet.repeated = True
 
@@ -81,12 +82,17 @@ def process_bet_core(gp):
             new_points.points += gp_points_position(8, bet.p8, gp)
             new_points.points += gp_points_position(9, bet.p9, gp)
             new_points.points += gp_points_position(10, bet.p10, gp)
+
+            new_points.points += gp_points_dod(bet.DoD, gp)
+            new_points.points += gp_points_bestlap(bet.BestLap, gp)
             
+            # If race is double points
             if gp.double_points:
                 new_points.points *= 2
 
-            if bet.repeated:
-                new_points.points = math.trunc(new_points.points / 2)
+            # Bonus for sending bet
+            if not bet.repeated:
+                new_points.points = new_points.points + 5
             
             # import pdb;
             # pdb.set_trace()
@@ -159,7 +165,7 @@ def gp_points_position(position, bet_p, gp):
         
         result = points[(position + abs(gp_pos - position))]
         
-        if abs(gp_pos - position) == 0:
+        if abs(gp_pos - position) < 0.01:
             result += bonus
     
     return result
@@ -167,6 +173,20 @@ def gp_points_position(position, bet_p, gp):
 
 def gp_points_pole(bet_pole, gp):
     if bet_pole == gp.pole:
-        return 12
+        return 10
+    else:
+        return 0
+
+
+def gp_points_dod(bet_DoD, gp):
+    if bet_DoD == gp.DoD:
+        return 5
+    else:
+        return 0
+
+
+def gp_points_bestlap(bet_BestLap, gp):
+    if bet_BestLap == gp.BestLap:
+        return 10
     else:
         return 0

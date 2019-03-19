@@ -5,11 +5,12 @@ app_name = 'bolao_bet'
 
 urlpatterns = [
     # /bolao_bet/
-    #url(r'bet/add/$', views.BetCreate.as_view(), name='bolao_bet-add'),
+    # url(r'bet/add/$', views.BetCreate.as_view(), name='bolao_bet-add'),
     url(r'bet/add/$', views.create_bet, name='bolao_bet-add'),
     url(r'process_bet$', views.process_bet, name='bolao_bet-process'),
     url(r'view_bet$', views.view_bet, name='bolao_bet-view'),
     # make post
     url(r'^make_post/(?P<bet_id>[0-9]+)/$', views.make_post, name='make-post'),
     url(r'results$', views.view_results, name='bolao_bet-results'),
+    url(r'clear_secret$', views.clear_secret, name='bolao_bet-clearsecret'),
 ]

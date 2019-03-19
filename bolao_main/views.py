@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
-from bolao_main.forms import UserDetailsForm
+from bolao_main.forms import UserDetailsForm, SelectUserForm
 from bolao_bet.models import UserGpPoints, UserTotalPoints
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -122,17 +122,34 @@ def logout_view(request):
 
 @staff_member_required
 def change_user_password_view(request):
-    username = request.POST.get('CUP_User', '')
-    password = request.POST.get('CUP_Password', '')
-    
-    u = User.objects.get(username=username)
-    u.set_password(password)
-    u.save()
-    
-    messages.warning(request, 'Senha de ' + username + ' alterada para ' + password)
-    
-    # Return to main page
-    return HttpResponseRedirect(reverse('bolao_main:index'))
+
+    if request.method == 'POST':
+        form = SelectUserForm(request.POST)
+
+        print('been here')
+        print(form.is_valid())
+
+        if form.is_valid():
+
+            user = form.cleaned_data.get('username')
+            password = 'borracheiros'
+
+            user.set_password(password)
+            user.save()
+
+            messages.warning(request, 'Senha de ' + user.username + ' alterada para ' + password)
+        else:
+            messages.warning(request, 'Erro! Senha não alterada!')
+
+        return HttpResponseRedirect(reverse('bolao_main:index'))
+
+    else:
+        form = SelectUserForm()
+
+    context = {'form': form}
+
+    return render(request, 'bolao_main/select_user.html', context)
+
 
 
 @login_required

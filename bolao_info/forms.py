@@ -26,24 +26,28 @@ class UpdateGpResultsForm(forms.ModelForm):
             queryset=GPInfo.objects.all().order_by('race_date'), label='GP ')
         self.fields['country'].widget.attrs['disabled'] = False
         self.fields['pole'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='Pole ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='Pole ')
         self.fields['p1'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P1 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P1 ')
         self.fields['p2'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P2 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P2 ')
         self.fields['p3'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P3 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P3 ')
         self.fields['p4'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P4 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P4 ')
         self.fields['p5'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P5 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P5 ')
         self.fields['p6'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P6 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P6 ')
         self.fields['p7'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P7 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P7 ')
         self.fields['p8'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P8 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P8 ')
         self.fields['p9'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P9 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P9 ')
         self.fields['p10'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.all().order_by('name'), label='P10 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P10 ')
+        self.fields['DoD'] = forms.ModelChoiceField(
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='DoD ')
+        self.fields['BestLap'] = forms.ModelChoiceField(
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='BestLap ')

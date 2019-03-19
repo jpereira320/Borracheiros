@@ -1,8 +1,6 @@
 *.pyc
 __pycache__
 venv
-/static1
-/static2
-/Info
-.idea/
 /bolaoweb/local_settings.py
+SenhaSuperUser.txt
+Procfile.windows

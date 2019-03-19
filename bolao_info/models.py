@@ -33,30 +33,34 @@ class GPInfo(models.Model):
 
     double_points = models.BooleanField(default=False)
     processed = models.BooleanField(default=False)
-    
+
     # Results
     pole = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_pole', blank=True, null=True,
-        limit_choices_to={'active': True})
+                             limit_choices_to={'active': True})
     p1 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p1', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p2 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p2', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p3 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p3', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p4 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p4', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p5 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p5', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p6 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p6', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p7 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p7', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p8 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p8', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p9 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p9', blank=True, null=True,
-        limit_choices_to={'active': True})
+                           limit_choices_to={'active': True})
     p10 = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_p10', blank=True, null=True,
-        limit_choices_to={'active': True})
+                            limit_choices_to={'active': True})
+    DoD = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_DoD', blank=True, null=True,
+                            limit_choices_to={'active': True})
+    BestLap = models.ForeignKey(PilotInfo, on_delete=models.PROTECT, related_name='gp_BestLap', blank=True, null=True,
+                                limit_choices_to={'active': True})
     
     def __str__(self):
         return 'GP ' + self.country.__str__() + ' - ' + self.year.__str__()

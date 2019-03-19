@@ -74,9 +74,13 @@
                             <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Atualizar GP
                         </a></li>
                         <li><a href="{% url 'bolao_bet:bolao_bet-process' %}">
-                            <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Apurar
+                            <span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span> Apurar GP
                         </a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#myCUPModal">
+                        <li><a href="{% url 'bolao_bet:bolao_bet-clearsecret' %}">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Remover Segredo
+                        </a></li>
+                        <!--<li><a href="#" data-toggle="modal" data-target="#myCUPModal">-->
+                        <li><a href="{% url 'bolao_main:main-cup' %}">
                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Alterar Senhas
                         </a></li>
                     </ul>

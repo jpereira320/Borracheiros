@@ -32,7 +32,8 @@ class ViewResultsForm(forms.ModelForm):
 class CreateBetForm(forms.ModelForm):
     class Meta:
         model = UserBet
-        fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'hidden']
+        fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10',
+                  'DoD', 'BestLap', 'hidden']
 
     def __init__(self, *args, **kwargs):
         super(CreateBetForm, self).__init__(*args, **kwargs)
@@ -43,7 +44,7 @@ class CreateBetForm(forms.ModelForm):
         self.fields['pole'] = forms.ModelChoiceField(
             queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='Pole ')
         self.fields['p1'] = forms.ModelChoiceField(
-            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P1 ')
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P1   ')
         self.fields['p2'] = forms.ModelChoiceField(
             queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P2 ')
         self.fields['p3'] = forms.ModelChoiceField(
@@ -62,4 +63,8 @@ class CreateBetForm(forms.ModelForm):
             queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P9 ')
         self.fields['p10'] = forms.ModelChoiceField(
             queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='P10 ')
+        self.fields['DoD'] = forms.ModelChoiceField(
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='Piloto do Dia ')
+        self.fields['BestLap'] = forms.ModelChoiceField(
+            queryset=PilotInfo.objects.filter(active=True).order_by('name'), label='Melhor Volta ')
         self.fields['hidden'] = forms.BooleanField(required=False, label='Aposta Secreta')

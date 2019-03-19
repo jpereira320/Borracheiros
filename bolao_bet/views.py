@@ -17,7 +17,7 @@ import datetime
 class BetCreate(CreateView):
     model = UserBet
     template_name = 'bolao_bet/userbet_form.html'
-    fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'hidden']
+    fields = ['GPrix', 'pole', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'DoD', 'BestLap', 'hidden']
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -51,6 +51,8 @@ def create_bet(request):
             bet.p8 = form.cleaned_data.get('p8')
             bet.p9 = form.cleaned_data.get('p9')
             bet.p10 = form.cleaned_data.get('p10')
+            bet.DoD = form.cleaned_data.get('DoD')
+            bet.BestLap = form.cleaned_data.get('BestLap')
             bet.hidden = form.cleaned_data.get('hidden')
             bet.save()
 
@@ -96,6 +98,8 @@ def make_post(request, bet_id):
         bet_p8 = bet.p8.name
         bet_p9 = bet.p9.name
         bet_p10 = bet.p10.name
+        bet_DoD = bet.DoD.name
+        bet_BestLap = bet.BestLap.name
     
     except (KeyError, UserBet.DoesNotExist):
         # Redisplay the question voting form.
@@ -120,7 +124,9 @@ def make_post(request, bet_id):
                      'P7: ' + bet_p7 + '\n' +
                      'P8: ' + bet_p8 + '\n' +
                      'P9: ' + bet_p9 + '\n' +
-                     'P10: ' + bet_p10)
+                     'P10: ' + bet_p10 + '\n' +
+                     'DoD: ' + bet_DoD + '\n' +
+                     'BestLap: ' + bet_BestLap)
         
         post.save()
         
@@ -157,6 +163,8 @@ def make_repost(bet_id):
     bet_p8 = bet.p8.name
     bet_p9 = bet.p9.name
     bet_p10 = bet.p10.name
+    bet_DoD = bet.DoD.name
+    bet_BestLap = bet.BestLap.name
 
     post = Blog()
 
@@ -178,7 +186,9 @@ def make_repost(bet_id):
                  'P7: ' + bet_p7 + '\n' +
                  'P8: ' + bet_p8 + '\n' +
                  'P9: ' + bet_p9 + '\n' +
-                 'P10: ' + bet_p10)
+                 'P10: ' + bet_p10 + '\n' +
+                 'DoD: ' + bet_DoD + '\n' +
+                 'BestLap: ' + bet_BestLap)
 
     post.save()
     
@@ -204,6 +214,31 @@ def process_bet(request):
     context = {'form': form,}
     
     return render(request, 'bolao_bet/process_bet.html', context)
+
+
+@staff_member_required
+def clear_secret(request):
+    if request.method == 'POST':
+
+        form = ProcessBetForm(request.POST)
+
+        if form.is_valid():
+            gp = form.cleaned_data.get('country')
+
+            posts = Blog.objects.filter(title__contains=gp.__str__())
+            posts = posts.filter(hidden=True)
+
+            for post in posts:
+                    post.hidden = False
+                    post.save()
+
+            return HttpResponseRedirect(reverse('bolao_main:index'))
+    else:
+        form = ProcessBetForm()
+
+    context = {'form': form}
+
+    return render(request, 'bolao_bet/view_bet.html', context)
 
 
 @login_required

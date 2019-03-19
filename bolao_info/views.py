@@ -27,7 +27,9 @@ def select_gp_2_update(request):
                 'p7': gp.p7,
                 'p8': gp.p8,
                 'p9': gp.p9,
-                'p10': gp.p10
+                'p10': gp.p10,
+                'DoD': gp.DoD,
+                'BestLap': gp.BestLap
             })
             
             context_u = {'form': form_u}
@@ -64,6 +66,8 @@ def update_gp(request):
             gp.p8 = form.cleaned_data.get('p8')
             gp.p9 = form.cleaned_data.get('p9')
             gp.p10 = form.cleaned_data.get('p10')
+            gp.DoD = form.cleaned_data.get('DoD')
+            gp.BestLap = form.cleaned_data.get('BestLap')
             gp.save()
 
             messages.warning(request, gp.__str__() + ' atualizado com sucesso!')

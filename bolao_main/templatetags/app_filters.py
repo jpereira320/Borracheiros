@@ -10,7 +10,13 @@ def getposition(value, arg):
     
     a = original_string.replace('\n\n', '\n').replace('\n', ': ')
     b = a.split(': ')
-    return b[position]
+
+    try:
+        c = b[position]
+    except IndexError:
+        c = 'N/A'
+
+    return c
 
 
 @register.filter(name='getlistitem')
