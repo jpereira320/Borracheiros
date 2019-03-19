@@ -11,7 +11,7 @@ class SelectGP2UpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SelectGP2UpdateForm, self).__init__(*args, **kwargs)
         self.fields['country'] = forms.ModelChoiceField(
-            queryset=GPInfo.objects.all().order_by('race_date'), label='GP ')
+            queryset=GPInfo.objects.all().order_by('-race_date'), label='GP ')
         
 
 class UpdateGpResultsForm(forms.ModelForm):

@@ -14,7 +14,7 @@ class ProcessBetForm(forms.ModelForm):
         
         super(ProcessBetForm, self).__init__(*args, **kwargs)
         self.fields['country'] = forms.ModelChoiceField(
-            queryset=GPInfo.objects.all().order_by('race_date'), label='GP ')
+            queryset=GPInfo.objects.all().order_by('-race_date'), label='GP ')
 
 
 # Create the form class.
@@ -26,7 +26,7 @@ class ViewResultsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ViewResultsForm, self).__init__(*args, **kwargs)
         self.fields['country'] = forms.ModelChoiceField(
-            queryset=GPInfo.objects.filter(processed=True).order_by('race_date'), label='GP ')
+            queryset=GPInfo.objects.filter(processed=True).order_by('-race_date'), label='GP ')
 
 
 class CreateBetForm(forms.ModelForm):
