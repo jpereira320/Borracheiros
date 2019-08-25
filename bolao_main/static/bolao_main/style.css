@@ -2,6 +2,10 @@ body{
     background: white url("images/clean_textile.png");
 }
 
+.modal-backdrop{
+  z-index: 1;
+}
+
 .navbar{
     border-radius: 0;
 }
